@@ -56,7 +56,7 @@ def nivels(sets):
     sets.bg_color = sets.ceu
 
 def aliens_killed(sets):
-	text = ["Kills count: " + str(sets.count), 0.8, 10]
+	text = ["UFO's count: " + str(sets.count), 0.8, 10]
 	new_text(sets, text)
 
 	if sets.count % 20 == 0: nivels(sets)
@@ -65,9 +65,6 @@ def play_sound(sound):
     som = pyg.mixer.Sound("sound/" + sound + ".mp3")
 
     som.play()
-
-    while pyg.mixer.get_busy():
-        pyg.time.Clock.tick(2)
 
 def check_bullet_alien_collisions(aliens, bullets, sets):
     """Respond to bullet-alien collisions."""
@@ -107,12 +104,12 @@ def update_aliens(sets, screen, aliens, bullets):
     aliens.draw(screen)
 
 def game_over(character, bullets, sets, screen, aliens):
-    new_text(sets, ["Game Over\nKills count:" + str(sets.count), 0.53, 10*5], './img/Alien-Reaching.png')
+    new_text(sets, ["Game Over\nUFO destroyed:" + str(sets.count), 0.53, 10*5], './img/Alien-Reaching.png')
     
     while sets.rodando == True:
         pyg.image.load('./img/Alien-Reaching.png')
         for event in pyg.event.get():
-            if event.type == pyg.QUIT or (event.type == pyg.KEYDOWN and event.key == pyg.K_q): sys.exit()
+            if event.type == pyg.QUIT or (event.type == pyg.KEYDOWN and event.key == pyg.K_ESCAPE): sys.exit()
             elif event.type == pyg.KEYDOWN and event.key == pyg.K_r:
                 sets.rodando == False
                 handle_stop_restart(sets, character, bullets, screen, aliens, True)
@@ -134,11 +131,11 @@ def handle_game_logic(character, bullets, sets, screen, aliens):
     check_aliens_bottom(character, bullets, sets, screen, aliens)
 
 def shoot(character, bullets, sets, screen):
-	character.moving_left = character.moving_right = False
-	if len(bullets) < sets.bullets_allowed:
+    character.moving_left = character.moving_right = False
+    if len(bullets) < sets.bullets_allowed:
         play_sound("shoot")
-		new_bullet = Bullet(sets, screen, character)
-		bullets.add(new_bullet)
+        new_bullet = Bullet(sets, screen, character)
+        bullets.add(new_bullet)
 
 def handle_keyboard_events(event, character, bullets, sets, screen, aliens):
     if event.key == pyg.K_RIGHT: character.moving_right = True
@@ -157,7 +154,7 @@ def handle_mouse_events(event, character, sets, bullets, aliens):
 def show_sets(sets):
 	msg = """
 Alien Invasion (Invasão alienigena)\n\n
-- Quit ou tecla q para sair do jogo;\n
+- Quit ou tecla Esc para sair do jogo;\n
 - Stop/Rerun ou r: pause ou reinicia o jogo.\n
 - E para instruções;\n
 - Mover-se com: esquerda, direita ou cliques;\n
