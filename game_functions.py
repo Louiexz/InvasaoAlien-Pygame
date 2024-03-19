@@ -61,6 +61,14 @@ def aliens_killed(sets):
 
 	if sets.count % 20 == 0: nivels(sets)
 
+def play_sound(sound):
+    som = pyg.mixer.Sound("sound/" + sound + ".mp3")
+
+    som.play()
+
+    while pyg.mixer.get_busy():
+        pyg.time.Clock.tick(2)
+
 def check_bullet_alien_collisions(aliens, bullets, sets):
     """Respond to bullet-alien collisions."""
     # Remove any bullets and aliens that have collided
@@ -70,6 +78,7 @@ def check_bullet_alien_collisions(aliens, bullets, sets):
             # each value is a list of aliens that were hit by the same bullet
             for alien in aliens:
                 alien.kill()
+                play_sound("collision")
                 sets.count += 1
                 aliens_killed(sets)
 
@@ -127,6 +136,7 @@ def handle_game_logic(character, bullets, sets, screen, aliens):
 def shoot(character, bullets, sets, screen):
 	character.moving_left = character.moving_right = False
 	if len(bullets) < sets.bullets_allowed:
+        play_sound("shoot")
 		new_bullet = Bullet(sets, screen, character)
 		bullets.add(new_bullet)
 
