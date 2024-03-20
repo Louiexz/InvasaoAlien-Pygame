@@ -9,6 +9,8 @@ class Settings():
 		self.bg_color = (100, 100, 100)
 		self.espaco = (0, 0, 33)
 		self.ceu= (135, 206, 235)
+		# Levels
+		self.stage = 0
 		# Configurações dos projéteis
 		self.bullet_width = 3
 		self.bullet_height = 15
@@ -17,6 +19,7 @@ class Settings():
 		self.bullets_allowed = 3
 		# Configurações da espaçonave
 		self.ship_speed_factor = 3
+		self.ship_lifes = 5
 		# Configurações dos alienígenas
 		self.alien_speed_factor = 5
 		self.fleet_drop_speed = 50
@@ -32,6 +35,7 @@ class Settings():
 		self.buttons = [button1_rect, button2_rect, button3_rect]
 
 		# Loop
+		self.pause = False
 		self.rodando = True
 
 	def restart():
