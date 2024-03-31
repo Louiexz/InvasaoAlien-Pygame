@@ -41,7 +41,7 @@ class Settings():
 		self.bg_color = (100, 100, 100)
 		self.alien_speed_factor = 5
 		self.bullets_allowed = 3
-		self.bullet_speed_factor = 15
+		self.bullet_speed_factor = 10
 		self.fleet_drop_speed = 50
 		self.ship_speed_factor = 3
 		self.stage = 0

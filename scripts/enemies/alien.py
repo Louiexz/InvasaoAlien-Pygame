@@ -9,7 +9,7 @@ class Alien(pyg.sprite.Sprite):
         super().__init__()
         self.screen = screen
         self.ai_settings = ai_settings
-        self.image = pyg.image.load('img/aliens/' + image)
+        self.image = pyg.image.load('./assets/enemies/aliens/' + image)
         self.rect = self.image.get_rect()
         # Start each new alien near the top left of the screen.
         self.rect.x = self.rect.width

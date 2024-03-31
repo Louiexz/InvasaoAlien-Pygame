@@ -1,6 +1,6 @@
 import pygame as pyg
 
-class Character():
+class Ship():
 	def __init__(self, screen, photo, ai_sets=''):
 		"""Inicializa a espaçonave e define sua posição inicial."""
 		self.screen = screen
