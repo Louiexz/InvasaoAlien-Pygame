@@ -1,5 +1,5 @@
 import pygame as pyg
-from scripts.character.bullet import Bullet
+from ..character.bullet import Bullet
 
 class GameFuncts:
     @staticmethod
@@ -34,7 +34,7 @@ class GameFuncts:
 
     @staticmethod
     def play_sound(sound, tip=False):
-        path = "./sound/" + sound + ".mp3"
+        path = "./assets/sound/" + sound + ".mp3"
         if tip:
             if not pyg.mixer.music.get_busy():
                 pyg.mixer.music.load(path)
@@ -53,7 +53,7 @@ class GameFuncts:
     """
         text = [msg, 0.53, 4000]
         GameFuncts.play_sound("game/8bit-music", True)
-        GameFuncts.new_text(screen, settings, text, './assets/enemies/alien-male.png')
+        GameFuncts.new_text(screen, settings, text, './assets/imagens/enemies/alien-male.png')
 
     @staticmethod
     def shoot(ship, bullets, settings):

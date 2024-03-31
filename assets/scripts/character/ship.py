@@ -1,12 +1,12 @@
 import pygame as pyg
 
 class Ship():
-	def __init__(self, screen, photo, ai_sets=''):
+	def __init__(self, screen, ai_sets=''):
 		"""Inicializa a espaçonave e define sua posição inicial."""
 		self.screen = screen
 		self.sets = ai_sets
 		# Carrega a imagem da espaçonave e obtém seu rect
-		self.image = pyg.image.load(photo + '.bmp')
+		self.image = pyg.image.load('./assets/imagens/character/new_ship2.bmp')
 		self.rect = self.image.get_rect()
 		self.screen_rect = screen.get_rect()
 		# Inicia cada nova espaçonave na parte inferior central da tela

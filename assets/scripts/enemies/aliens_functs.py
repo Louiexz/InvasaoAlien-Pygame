@@ -1,6 +1,6 @@
 import os
 import pygame as pyg
-from scripts.enemies.alien import Alien
+from .alien import Alien
 
 class AliensFuncts:
     @staticmethod
@@ -79,7 +79,7 @@ class AliensFuncts:
     @staticmethod
     def get_random_aliens():
         # Gera um índice aleatório usando os.urandom
-        archives = os.listdir('./assets/enemies/aliens')
+        archives = os.listdir('./assets/imagens/enemies/aliens')
         random = int.from_bytes(os.urandom(4), byteorder='big') % len(archives)
     
         return archives[random]

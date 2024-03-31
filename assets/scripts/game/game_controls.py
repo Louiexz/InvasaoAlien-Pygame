@@ -1,8 +1,8 @@
 import sys
 import pygame as pyg
-from scripts.character.input_controls import InputControls
-from scripts.enemies.aliens_functs import AliensFuncts
-from scripts.game.game_functs import GameFuncts
+from ..character.input_controls import InputControls
+from ..enemies.aliens_functs import AliensFuncts
+from .game_functs import GameFuncts
 
 class GameControls:
     @staticmethod
@@ -79,7 +79,7 @@ UFO's count: {settings.count}'''
         GameFuncts.play_sound("game/game-over-transition", True)
         GameFuncts.play_sound("game/game-over-voice")
         msg = f"Game Over\nUFO destroyed: {settings.count}\nStage: {settings.stage}"
-        GameFuncts.new_text(screen, settings, [msg, 0.53, 10*5], './assets/enemies/alien-reaching.png')
+        GameFuncts.new_text(screen, settings, [msg, 0.53, 10*5], './assets/imagens/enemies/alien-reaching.png')
         while not settings.rodando:
             for event in pyg.event.get():
                 if event.type == pyg.KEYDOWN and event.key == pyg.K_r:
