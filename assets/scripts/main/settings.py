@@ -9,6 +9,8 @@ class Settings():
 		self.bg_color = (100, 100, 100)
 		self.espaco = (0, 0, 33)
 		self.ceu = (135, 206, 235)
+		# Reprodução de sons
+		self.estado_som = True
 		# Levels
 		self.stage = 0
 		# Configurações dos projéteis
@@ -28,11 +30,12 @@ class Settings():
 		# Aliens mortos
 		self.count = 0
 		# Botões
-		button1_rect = [screen_width * 0.75, screen_height * 0.05, 160, 40, (0, 0, 0), "Instructions"]
+		button1_rect = [screen_width * 0.85, screen_height * 0.05, 160, 40, (0, 0, 0), "Instructions"]
 		button2_rect = [20, screen_height * 0.2, 140, 40, (255, 0, 0), "Quit"]
 		button3_rect = [20, screen_height * 0.3, 140, 40, (0, 0, 0), "Stop/Rerun"]
+		button4_rect = [screen_width * 0.86, screen_height * 0.15, 140, 40, (0, 0, 0), "Som"]
 
-		self.buttons = [button1_rect, button2_rect, button3_rect]
+		self.buttons = [button1_rect, button2_rect, button3_rect, button4_rect]
 		# Loop
 		self.pause = False
 		self.rodando = True

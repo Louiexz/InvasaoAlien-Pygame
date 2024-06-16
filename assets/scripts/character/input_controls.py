@@ -17,6 +17,7 @@ class InputControls():
                 if button.rect.collidepoint(event.pos):
                     if button.text == "Stop/Rerun": return 2
                     elif button.text == "Instructions": return 3
+                    elif button.text == "Som": return 4
                     else: sys.exit()
         
         mouse_pos = pyg.mouse.get_pos()

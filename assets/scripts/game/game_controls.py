@@ -49,15 +49,16 @@ class GameControls:
     
     @staticmethod
     def update_screen(screen, ship, bullets, aliens, settings, buttons):
-        
         if not settings.pause:
             screen.fill(settings.bg_color)
             ship.blitme()
             aliens.draw(screen)
             updated_rects = []
+
             for alien in aliens.sprites(): updated_rects.append(alien.rect)
             for bullet in bullets.sprites(): bullet.draw_bullet()
             for button in buttons: button.draw(screen)
+            
             GameFuncts.show_stats(screen, settings, bullets)
 
             # Crie uma lista de retângulos que precisam ser atualizados
@@ -68,19 +69,19 @@ class GameControls:
         GameFuncts.show_settings(screen, settings)
 
         while settings.rodando:
-            for event in pyg.event.get():
-                if event.type == pyg.VIDEORESIZE: screen = pyg.display.set_mode((event.w, event.h), pyg.RESIZABLE)
-
             GameControls.update_screen(screen, ship, bullets, aliens, settings, buttons)
             GameControls.render_game(screen, ship, bullets, aliens, buttons, settings)
             GameControls.control_frame_rate()
     
     @staticmethod
     def game_over(screen, settings, bullets, aliens, ship, buttons):
-        GameFuncts.play_sound("game/game-over-transition", True)
-        GameFuncts.play_sound("game/game-over-voice")
-        msg = f"Game Over\nUFO destroyed: {settings.count}\nStage: {settings.stage}"
-        GameFuncts.new_text(screen, settings, [msg, 10*5], './assets/imagens/enemies/alien-reaching.png', width=0.53)
+        GameFuncts.play_sound(settings, "game/game-over-transition", True)
+        GameFuncts.play_sound(settings, "game/game-over-voice")
+
+        msg = f"Game Over\n\nUFO destroyed: {settings.count}\n\nStage: {settings.stage}"
+        GameFuncts.new_text(screen, settings, [msg, 10*5], './assets/imagens/enemies/alien-reaching.png', width=0.5, height=0.5)
+
+        GameFuncts.new_text(screen, settings, ['Desenvolvido por: Luiz Augusto (Louiexz, github)', 10*5], tamanho=32, width=0.53, height=0.9)
         while not settings.rodando:
             for event in pyg.event.get():
                 if event.type == pyg.KEYDOWN and event.key == pyg.K_r:
@@ -98,8 +99,9 @@ class GameControls:
     
     @staticmethod
     def run_game_loop(screen, ship, bullets, settings, aliens, buttons):
-        GameFuncts.play_sound("game/8bit-music", True)
+        GameFuncts.play_sound(settings, "game/8bit-music", True)
         GameFuncts.show_settings(screen, settings, (255, 0, 0))
+        
         while True:
             input = InputControls().handle_input(ship, buttons)
             if input == 1: GameFuncts.shoot(ship, bullets, settings)
@@ -107,16 +109,22 @@ class GameControls:
                 GameFuncts.new_text(screen, settings, ["Jogo pausado", 10000])
                 GameControls.handle_stop_restart(settings, bullets, aliens, ship)
             elif input == 3:
-                GameFuncts.play_sound("game/8bit-music")
+                GameFuncts.play_sound(settings, "game/8bit-music")
                 GameFuncts.show_settings(screen, settings)
+            elif input == 4:
+                if settings.estado_som == True:
+                    pyg.mixer.stop()
+                    pyg.mixer.music.stop()
+                    settings.estado_som = False
+                else: settings.estado_som = True
             
             ship.update()
             GameControls().update_bullets(bullets, aliens, settings)
             
             som = AliensFuncts().handle_game_logic(screen, ship, bullets, aliens, settings)
-            if som[0]: GameFuncts().play_sound("aliens/collision")
+            if som[0]: GameFuncts().play_sound(settings, "aliens/collision")
             elif som[1]:
-                GameFuncts().play_sound("game/negative-beeps")
+                GameFuncts().play_sound(settings, "game/negative-beeps")
                 GameControls().game_over(screen, settings, bullets, aliens, ship, buttons)
 
             if not aliens.sprites(): AliensFuncts().create_fleet(screen, settings, aliens, AliensFuncts().get_random_aliens())
