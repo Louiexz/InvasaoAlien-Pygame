@@ -15,15 +15,15 @@ class GameFuncts:
         pyg.time.delay(time)
     
     @staticmethod
-    def new_text(screen, settings, txt, image=None):
-        font = pyg.font.SysFont(None, 38)
+    def new_text(screen, settings, txt, image=False, color=(255, 0, 0), tamanho=36, width=0.53, height=0.4):
+        font = pyg.font.SysFont(None, tamanho)
         lines = txt[0].split("\n")
         text_surfaces = []
         for line_number, line in enumerate(lines):
-            text_surface = font.render(line, True, (255, 0, 0))
+            text_surface = font.render(line, True, color)
             text_rect = text_surface.get_rect()
-            text_rect.midtop = (settings.screen_width * txt[1], settings.screen_height * 0.5 + line_number * 30)
-            text_surfaces.append((text_surface, text_rect, txt[2]))
+            text_rect.midtop = (settings.screen_width * width, settings.screen_height * height + line_number * 30)
+            text_surfaces.append((text_surface, text_rect, txt[1]))
         returns = [text_surfaces]
         if image:
             image_surface = pyg.image.load(image)
@@ -39,10 +39,11 @@ class GameFuncts:
             if not pyg.mixer.music.get_busy():
                 pyg.mixer.music.load(path)
                 pyg.mixer.music.play()
+                pyg.mixer.music.set_volume(1)
         else: pyg.mixer.Sound(path).play()
 
     @staticmethod
-    def show_settings(screen, settings):
+    def show_settings(screen, settings, color=(0, 0, 0)):
         msg = """
     Alien Invasion (Invasão alienigena)\n
     - Quit ou tecla Esc para sair do jogo;\n
@@ -51,9 +52,21 @@ class GameFuncts:
     - Mover-se com: esquerda, direita ou cliques;\n
     - Mouse clique ou espaço para atirar;\n
     """
-        text = [msg, 0.53, 4000]
+        text = [msg, 4000]
         GameFuncts.play_sound("game/8bit-music", True)
-        GameFuncts.new_text(screen, settings, text, './assets/imagens/enemies/alien-male.png')
+        GameFuncts.new_text(screen, settings, text, './assets/imagens/enemies/alien-male.png', color)
+    
+    def show_stats(screen, settings, bullets):
+        stats = [
+            [f'Bullets\n{settings.bullets_allowed - len(bullets)}', 0.35],
+            [f'Stage\n{str(settings.stage).center(7)}', 0.43],
+            [f'Lifes\n{str(settings.ship_lifes).center(6)}', 0.5],
+            [f'UFOs count\n{str(settings.count).center(12)}', 0.6],
+        ]
+
+        for stat in stats:
+            GameFuncts.new_text(screen, settings, [stat[0], 0], False, (0, 0, 0), 32, stat[1], 0.1)
+
 
     @staticmethod
     def shoot(ship, bullets, settings):

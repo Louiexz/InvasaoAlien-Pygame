@@ -49,6 +49,7 @@ class GameControls:
     
     @staticmethod
     def update_screen(screen, ship, bullets, aliens, settings, buttons):
+        
         if not settings.pause:
             screen.fill(settings.bg_color)
             ship.blitme()
@@ -57,11 +58,8 @@ class GameControls:
             for alien in aliens.sprites(): updated_rects.append(alien.rect)
             for bullet in bullets.sprites(): bullet.draw_bullet()
             for button in buttons: button.draw(screen)
-            msg = f'''
-Bullets: {settings.bullets_allowed - len(bullets)}
-Stage: {settings.stage}\nLifes: {settings.ship_lifes}
-UFO's count: {settings.count}'''
-            GameFuncts.new_text(screen, settings, [msg, 0.1, 10])
+            GameFuncts.show_stats(screen, settings, bullets)
+
             # Crie uma lista de retângulos que precisam ser atualizados
             pyg.display.update(updated_rects)
     
@@ -70,6 +68,9 @@ UFO's count: {settings.count}'''
         GameFuncts.show_settings(screen, settings)
 
         while settings.rodando:
+            for event in pyg.event.get():
+                if event.type == pyg.VIDEORESIZE: screen = pyg.display.set_mode((event.w, event.h), pyg.RESIZABLE)
+
             GameControls.update_screen(screen, ship, bullets, aliens, settings, buttons)
             GameControls.render_game(screen, ship, bullets, aliens, buttons, settings)
             GameControls.control_frame_rate()
@@ -79,7 +80,7 @@ UFO's count: {settings.count}'''
         GameFuncts.play_sound("game/game-over-transition", True)
         GameFuncts.play_sound("game/game-over-voice")
         msg = f"Game Over\nUFO destroyed: {settings.count}\nStage: {settings.stage}"
-        GameFuncts.new_text(screen, settings, [msg, 0.53, 10*5], './assets/imagens/enemies/alien-reaching.png')
+        GameFuncts.new_text(screen, settings, [msg, 10*5], './assets/imagens/enemies/alien-reaching.png', width=0.53)
         while not settings.rodando:
             for event in pyg.event.get():
                 if event.type == pyg.KEYDOWN and event.key == pyg.K_r:
@@ -98,12 +99,12 @@ UFO's count: {settings.count}'''
     @staticmethod
     def run_game_loop(screen, ship, bullets, settings, aliens, buttons):
         GameFuncts.play_sound("game/8bit-music", True)
-        GameFuncts.show_settings(screen, settings)
+        GameFuncts.show_settings(screen, settings, (255, 0, 0))
         while True:
             input = InputControls().handle_input(ship, buttons)
             if input == 1: GameFuncts.shoot(ship, bullets, settings)
             elif input == 2:
-                GameFuncts.new_text(screen, settings, ["Jogo pausado", 0.53, 10000])
+                GameFuncts.new_text(screen, settings, ["Jogo pausado", 10000])
                 GameControls.handle_stop_restart(settings, bullets, aliens, ship)
             elif input == 3:
                 GameFuncts.play_sound("game/8bit-music")
