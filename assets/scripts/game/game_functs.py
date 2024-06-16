@@ -15,7 +15,7 @@ class GameFuncts:
         pyg.time.delay(time)
     
     @staticmethod
-    def new_text(screen, settings, txt, image=False, color=(255, 0, 0), tamanho=36, width=0.50, height=0.5):
+    def new_text(screen, settings, txt, image=False, color=(255, 255, 255), tamanho=36, width=0.50, height=0.5):
         font = pyg.font.SysFont(None, tamanho)
         lines = txt[0].split("\n")
         text_surfaces = []
@@ -45,7 +45,7 @@ class GameFuncts:
             else: pyg.mixer.Sound(path).play()
         
     @staticmethod
-    def show_settings(screen, settings, color=(0, 0, 0)):
+    def show_settings(screen, settings, color=(255, 255, 255)):
         msg = """
 Alien Invasion (Invasão alienigena)\n\n
 - Quit ou tecla Esc para sair do jogo;\n
@@ -68,7 +68,7 @@ Desenvolvido por: Luiz Augusto (Louiexz, github)
         ]
 
         for stat in stats:
-            GameFuncts.new_text(screen, settings, [stat[0], 0], color=(0, 0, 0), tamanho=32, width=stat[1], height=0.1)
+            GameFuncts.new_text(screen, settings, [stat[0], 0], tamanho=32, width=stat[1], height=0.1)
 
     @staticmethod
     def shoot(ship, bullets, settings):
