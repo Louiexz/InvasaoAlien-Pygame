@@ -1,8 +1,11 @@
 # InvasaoAlien-Pygame
-
-![InvasaoAlien](InvasaoAlien.png)
-
 Este é um jogo arcade simples construído com Pygame ao estudar o livro Curso Intensivo de Python, com algumas novas funcionalidades.
+
+
+## Screenshots
+
+![Defend the Fall](InvasaoAlien.png)
+![Instruções](instrucoes.png)
 
 ## Funcionalidades
 

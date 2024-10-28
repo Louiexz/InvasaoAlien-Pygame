@@ -28,7 +28,7 @@ class GameFuncts:
         if image:
             image_surface = pyg.image.load(image)
             image_rect = image_surface.get_rect()
-            image_rect.midbottom = (settings.screen_width * 0.50, settings.screen_height * 0.4)
+            image_rect.midbottom = (settings.screen_width * 0.50, settings.screen_height * 0.48)
             returns.append([image_surface, image_rect])
         GameFuncts.show_text(screen, *returns)
 
@@ -47,7 +47,7 @@ class GameFuncts:
     @staticmethod
     def show_settings(screen, settings, color=(255, 255, 255)):
         msg = """
-Alien Invasion (Invasão alienigena)\n\n
+DTF - Defend the fall\n\n
 - Quit ou tecla Esc para sair do jogo;\n
 - Stop/Rerun ou r: pause ou reinicia o jogo.\n
 - E para instruções;\n

@@ -12,8 +12,8 @@ class InitializeGame:
         pyg.display.set_caption("Alien Invasion")
 
         screen_info = pyg.display.Info()
-        width = screen_info.current_w
-        height = screen_info.current_h
+        width = screen_info.current_w - 100
+        height = screen_info.current_h - 100
         screen = pyg.display.set_mode((width, height))
 
         ai_sets = Settings(width, height, screen)
